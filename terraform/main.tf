@@ -2,9 +2,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
+variable "public_key" {}
 resource "aws_key_pair" "deployer" {
   key_name   = "rails-key"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = var.public_key
 }
 
 resource "aws_instance" "app" {
