@@ -10,22 +10,24 @@ resource "aws_key_pair" "deployer" {
 }
 
 resource "aws_instance" "app" {
-  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI
+  ami           = "ami-007855ac798b5175e" # Amazon Linux 2 AMI
   instance_type = "t2.micro"
   key_name      = aws_key_pair.deployer.key_name
 
   tags = {
-    Name = "RailsApp"
+    Name = "RailsAppServer"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo yum install git -y",
-      "sudo yum install -y gcc-c++ patch readline readline-devel zlib zlib-devel git curl",
-      "gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3",
+      "sudo apt-get update -y",
+      "sudo apt-get install -y gnupg2 curl git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev",
+      "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3",
       "curl -sSL https://get.rvm.io | bash -s stable",
-      "source /home/ec2-user/.rvm/scripts/rvm",
-      "rvm install 3.2.2",
+      "source /home/ubuntu/.rvm/scripts/rvm",
+      "rvm install 3.2.2",                     # Example Ruby version
+      "rvm use 3.2.2 --default",
+      "ruby -v"
       "gem install bundler",
       "gem install puma"
     ]
