@@ -27,7 +27,7 @@ resource "aws_instance" "app" {
       "source /home/ubuntu/.rvm/scripts/rvm",
       "rvm install 3.2.2",                     # Example Ruby version
       "rvm use 3.2.2 --default",
-      "ruby -v"
+      "ruby -v",
       "gem install bundler",
       "gem install puma"
     ]
