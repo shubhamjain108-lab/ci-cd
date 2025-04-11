@@ -2,6 +2,27 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_security_group" "ssh" {
+  name        = "allow_ssh"
+  description = "Allow SSH inbound traffic"
+  vpc_id      = var.vpc_id # or use data source for default VPC
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # for testing, restrict later
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 variable "private_key" {}
 variable "public_key" {
   description = "The contents of the public SSH key"
@@ -17,6 +38,7 @@ resource "aws_instance" "app" {
   ami           = "ami-007855ac798b5175e" # Amazon Linux 2 AMI
   instance_type = "t2.micro"
   key_name      = aws_key_pair.deployer.key_name
+  vpc_security_group_ids = [aws_security_group.ssh.id]
 
   tags = {
     Name = "RailsAppServer"
