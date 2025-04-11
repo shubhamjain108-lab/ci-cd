@@ -37,7 +37,7 @@ resource "aws_key_pair" "deployer" {
 }
 
 resource "aws_instance" "app" {
-  ami           = "ami-007855ac798b5175e" # Amazon Linux 2 AMI
+  ami           = "ami-042e8287309f5df03" # Ubuntu Server 20.04 LTS (us-east-1)
   instance_type = "t2.micro"
   key_name      = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.ssh.id]
