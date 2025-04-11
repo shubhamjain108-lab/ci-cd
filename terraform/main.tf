@@ -3,6 +3,7 @@ provider "aws" {
 }
 
 variable "public_key" {}
+variable "private_key" {}
 resource "aws_key_pair" "deployer" {
   key_name   = "rails-key"
   public_key = var.public_key
@@ -32,7 +33,7 @@ resource "aws_instance" "app" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = file("~/.ssh/id_rsa")
+      private_key = var.private_key
       host        = self.public_ip
     }
   }
