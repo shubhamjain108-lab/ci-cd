@@ -1,11 +1,13 @@
 provider "aws" {
   region = "us-east-1"
 }
-
+data "aws_vpc" "default" {
+  default = true
+}
 resource "aws_security_group" "ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
-  vpc_id      = var.vpc_id # or use data source for default VPC
+  vpc_id      = data.aws_vpc.default.id #var.vpc_id # or use data source for default VPC
 
   ingress {
     description = "SSH"
