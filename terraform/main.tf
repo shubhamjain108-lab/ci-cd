@@ -52,7 +52,7 @@ resource "aws_instance" "app" {
       "sudo apt install curl gnupg software-properties-common -y",
       "gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB",
       "sudo apt install -y libncurses5-dev libreadline-dev libssl-dev libyaml-dev libffi-dev libgdbm-dev libdb-dev zlib1g-dev autoconf bison build-essential",
-      "\curl -sSL https://get.rvm.io | bash -s stable --ruby",
+      "curl -sSL https://get.rvm.io | bash -s stable --ruby",
       "source ~/.rvm/scripts/rvm",
       "rvm install 3.2.2",                     # Example Ruby version
       "rvm use 3.2.2 --default",
