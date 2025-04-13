@@ -51,7 +51,6 @@ resource "aws_instance" "app" {
       "sudo apt update && sudo apt upgrade -y",
       "sudo apt install curl gnupg software-properties-common -y",
       "gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB",
-      "sudo apt install -y libncurses5-dev libreadline-dev libssl-dev libyaml-dev libffi-dev libgdbm-dev libdb-dev zlib1g-dev autoconf bison build-essential",
       "sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev libdb-dev",
       "curl -sSL https://get.rvm.io | bash -s stable --ruby",
       "source ~/.rvm/scripts/rvm",
